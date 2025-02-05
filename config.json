@@ -1,0 +1,7 @@
+{
+  "public_key": "<PUBLIC-KEY>",
+  "secret_key": "<SECRET-KEY>",
+  "config_market": "",
+  "order_interval_seconds": 60,
+  "switch_side_interval_seconds": 600
+}
