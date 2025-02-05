@@ -4,7 +4,10 @@
 2. `source .venv/bin/activate`
 3. `pip install -r requirements.txt`
 4. configure config.json
-5. `python main.py`
+
+## RUN
+
+`python main.py`
 
 
 ## Note for config.json
