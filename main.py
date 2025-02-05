@@ -13,21 +13,19 @@ from bpx.constants.enums import MarketTypeEnum
 
 from config import load_config
 
-
+# logger
 os.makedirs("logs", exist_ok=True)
 logger.add("logs/bot_{time}.log", rotation="1 day", compression="zip", level="INFO")
 
+# config
 config = load_config()
-
 CONFIG_MARKET = config["config_market"]
-
 ORDER_INTERVAL_SECONDS = config["order_interval_seconds"]
 SWITCH_SIDE_INTERVAL_SECONDS = config["switch_side_interval_seconds"]
-
 account = Account(config["public_key"], config["secret_key"])
 public = Public()
 
-
+# helper functions
 def get_full_float(step_size_str: str) -> float:
 
     value_decimal = Decimal(step_size_str)
@@ -41,6 +39,7 @@ async def get_decimal_places(s: str):
     return 0
 
 
+# main trading loop
 async def main():
     all_markets = await public.get_markets()
     if CONFIG_MARKET == "PERP":
@@ -92,7 +91,7 @@ async def main():
                 min_quantity = market["filters"]["quantity"]["minQuantity"]
                 min_quantity_float = float(market["filters"]["quantity"]["minQuantity"])
                 decimals = await get_decimal_places(min_quantity)
-                if current_side == "Bid" or CONFIG_MARKET == "PERP" or CONFIG_MARKET == "":
+                if current_side == "Bid" or "PERP" in symbol:
                     random_val = random.uniform(min_quantity_float, min_quantity_float * 2)
                 elif current_side == "Ask":
                     available_quantity = balances[token]["available"]
